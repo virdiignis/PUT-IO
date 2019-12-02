@@ -20,17 +20,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 * @version 1.0
 * @since   2019-12-01
 */
-
 public class BootstrapBuilderApplication {
 	
-	/** 
+    /** 
     * This is the main method  
     * which is very important for  
     * execution for a java program.
     * @param args Unused.
-    * @return Nothing.
-    */
-	
+    */	
     public static void main(String[] args) {
 		
         SpringApplication.run(BootstrapBuilderApplication.class, args);
