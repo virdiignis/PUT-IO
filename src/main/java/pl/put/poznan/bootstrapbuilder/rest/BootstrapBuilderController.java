@@ -27,28 +27,28 @@ public class BootstrapBuilderController {
         BootstrapBuilder b = new BootstrapBuilder();
 
         if (bootstrapBuilderInput.isAddFooter()) b.withFooter();
-        if (!bootstrapBuilderInput.getHeaderType().isEmpty()) {
-            if (bootstrapBuilderInput.getHeaderType().contentEquals("static"))
-                b.withHeader(BootstrapBuilder.HeaderType.STATIC);
-            if (bootstrapBuilderInput.getHeaderType().contentEquals("fixed"))
-                b.withHeader(BootstrapBuilder.HeaderType.FIXED);
-        }
-        if (bootstrapBuilderInput.isAddNormalMetaTag()) {
-            if (bootstrapBuilderInput.getMetaTagType().contentEquals("normal"))
+
+        if ("static".contentEquals(bootstrapBuilderInput.getHeaderType()))
+            b.withHeader(BootstrapBuilder.HeaderType.STATIC);
+        if ("fixed".contentEquals(bootstrapBuilderInput.getHeaderType()))
+            b.withHeader(BootstrapBuilder.HeaderType.FIXED);
+
+        if (bootstrapBuilderInput.isAddNormalMetaTag() || bootstrapBuilderInput.isAddOpenGraphMetaTag() || bootstrapBuilderInput.isAddTwitterMetaTag()) {
+            if ("normal".contentEquals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.NORMAL);
-            if (bootstrapBuilderInput.getMetaTagType().contentEquals("open_graph"))
+            if ("open_graph".contentEquals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.OPEN_GRAPH);
-            if (bootstrapBuilderInput.getMetaTagType().contentEquals("twitter"))
+            if ("twitter".contentEquals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
         }
 
-        if (!bootstrapBuilderInput.getMetaTagDescription().isEmpty())
+        if (bootstrapBuilderInput.getMetaTagDescription() != null)
             b.withMetaTagDescription(bootstrapBuilderInput.getMetaTagDescription());
-        if (!bootstrapBuilderInput.getMetaTagImage().isEmpty())
+        if (bootstrapBuilderInput.getMetaTagImage() != null)
             b.withMetaTagImage(bootstrapBuilderInput.getMetaTagImage());
-        if (!bootstrapBuilderInput.getMetaTagType().isEmpty())
+        if (bootstrapBuilderInput.getMetaTagType() != null)
             b.withMetaTagType(bootstrapBuilderInput.getMetaTagType());
-        if (!bootstrapBuilderInput.getMetaTagTitle().isEmpty())
+        if (bootstrapBuilderInput.getMetaTagTitle() != null)
             b.withMetaTagTitle(bootstrapBuilderInput.getMetaTagTitle());
 
 
