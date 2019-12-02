@@ -33,14 +33,14 @@ public class BootstrapBuilderController {
         if ("fixed".equals(bootstrapBuilderInput.getHeaderType()))
             b.withHeader(BootstrapBuilder.HeaderType.FIXED);
 
-        if (bootstrapBuilderInput.isAddNormalMetaTag() || bootstrapBuilderInput.isAddOpenGraphMetaTag() || bootstrapBuilderInput.isAddTwitterMetaTag()) {
-            if ("normal".equals(bootstrapBuilderInput.getMetaTagType()))
-                b.withMetaTag(BootstrapBuilder.MetaTagType.NORMAL);
-            if ("open_graph".equals(bootstrapBuilderInput.getMetaTagType()))
-                b.withMetaTag(BootstrapBuilder.MetaTagType.OPEN_GRAPH);
-            if ("twitter".equals(bootstrapBuilderInput.getMetaTagType()))
-                b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
+        if (bootstrapBuilderInput.isAddNormalMetaTag()) {
+            b.withMetaTag(BootstrapBuilder.MetaTagType.NORMAL);
         }
+        if (bootstrapBuilderInput.isAddOpenGraphMetaTag()) {
+            b.withMetaTag(BootstrapBuilder.MetaTagType.OPEN_GRAPH);
+        }
+        if (bootstrapBuilderInput.isAddTwitterMetaTag())
+            b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
 
         if (bootstrapBuilderInput.getMetaTagDescription() != null)
             b.withMetaTagDescription(bootstrapBuilderInput.getMetaTagDescription());
@@ -55,5 +55,6 @@ public class BootstrapBuilderController {
         return b.build().toJson();
     }
 }
+
 
 
