@@ -1,7 +1,11 @@
 package pl.put.poznan.bootstrapbuilder.rest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import pl.put.poznan.bootstrapbuilder.logic.BootstrapBuilder;
 
 
@@ -20,9 +24,24 @@ public class BootstrapBuilderController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@RequestBody BootstrapBuilderInput bootstrapBuilderInput) {
-        return new BootstrapBuilder()
-                .build()
-                .toJson();
+        BootstrapBuilder b = new BootstrapBuilder();
+
+        if (bootstrapBuilderInput.isAddFooter()) b.withFooter();
+        if (!bootstrapBuilderInput.getHeaderType().isEmpty()) {
+            if (bootstrapBuilderInput.getHeaderType().contentEquals("static"))
+                b.withHeader(BootstrapBuilder.HeaderType.STATIC);
+            if (bootstrapBuilderInput.getHeaderType().contentEquals("fixed"))
+                b.withHeader(BootstrapBuilder.HeaderType.FIXED);
+        }
+        if (bootstrapBuilderInput.isAddNormalMetaTag()) {
+            if (bootstrapBuilderInput.getMetaTagType().contentEquals("normal"))
+                b.withMetaTag(BootstrapBuilder.MetaTagType.NORMAL);
+            if (bootstrapBuilderInput.getMetaTagType().contentEquals("open_graph"))
+                b.withMetaTag(BootstrapBuilder.MetaTagType.OPEN_GRAPH);
+            if (bootstrapBuilderInput.getMetaTagType().contentEquals("twitter"))
+                b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
+        }
+        return b.build().toJson();
     }
 }
 
