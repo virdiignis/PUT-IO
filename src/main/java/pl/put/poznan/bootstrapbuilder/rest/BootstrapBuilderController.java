@@ -28,17 +28,17 @@ public class BootstrapBuilderController {
 
         if (bootstrapBuilderInput.isAddFooter()) b.withFooter();
 
-        if ("static".contentEquals(bootstrapBuilderInput.getHeaderType()))
+        if ("static".equals(bootstrapBuilderInput.getHeaderType()))
             b.withHeader(BootstrapBuilder.HeaderType.STATIC);
-        if ("fixed".contentEquals(bootstrapBuilderInput.getHeaderType()))
+        if ("fixed".equals(bootstrapBuilderInput.getHeaderType()))
             b.withHeader(BootstrapBuilder.HeaderType.FIXED);
 
         if (bootstrapBuilderInput.isAddNormalMetaTag() || bootstrapBuilderInput.isAddOpenGraphMetaTag() || bootstrapBuilderInput.isAddTwitterMetaTag()) {
-            if ("normal".contentEquals(bootstrapBuilderInput.getMetaTagType()))
+            if ("normal".equals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.NORMAL);
-            if ("open_graph".contentEquals(bootstrapBuilderInput.getMetaTagType()))
+            if ("open_graph".equals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.OPEN_GRAPH);
-            if ("twitter".contentEquals(bootstrapBuilderInput.getMetaTagType()))
+            if ("twitter".equals(bootstrapBuilderInput.getMetaTagType()))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
         }
 
