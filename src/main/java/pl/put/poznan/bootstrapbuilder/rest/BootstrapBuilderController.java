@@ -41,6 +41,17 @@ public class BootstrapBuilderController {
             if (bootstrapBuilderInput.getMetaTagType().contentEquals("twitter"))
                 b.withMetaTag(BootstrapBuilder.MetaTagType.TWITTER);
         }
+
+        if (!bootstrapBuilderInput.getMetaTagDescription().isEmpty())
+            b.withMetaTagDescription(bootstrapBuilderInput.getMetaTagDescription());
+        if (!bootstrapBuilderInput.getMetaTagImage().isEmpty())
+            b.withMetaTagImage(bootstrapBuilderInput.getMetaTagImage());
+        if (!bootstrapBuilderInput.getMetaTagType().isEmpty())
+            b.withMetaTagType(bootstrapBuilderInput.getMetaTagType());
+        if (!bootstrapBuilderInput.getMetaTagTitle().isEmpty())
+            b.withMetaTagTitle(bootstrapBuilderInput.getMetaTagTitle());
+
+
         return b.build().toJson();
     }
 }
