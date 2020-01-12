@@ -24,6 +24,7 @@ public class BootstrapBuilder {
     private static final String STATIC_HEADER = "{STATIC_HEADER}";
     private static final String FIXED_HEADER = "{FIXED_HEADER}";
     private static final String FOOTER = "{FOOTER}";
+    private static final String FOOTER_CONTACT = "{CONTACT_FOOTER}";
     private static final String META_TAG_NORMAL = "{META_TAG_NORMAL}";
     private static final String META_TAG_OPEN_GRAPH = "{META_TAG_OPEN_GRAPH}";
     private static final String META_TAG_TWITTER = "{META_TAG_TWITTER}";
@@ -33,10 +34,17 @@ public class BootstrapBuilder {
     private static final String META_TAG_PROPERTY_DESCRIPTION = "{META_TAG_DESCRIPTION}";
     private static final String META_TAG_PROPERTY_IMAGE = "{META_TAG_IMAGE}";
 
+    private static final String CONTACT_COMPANY_NAME = "{FOOTER_CONTACT_COMPANY_NAME}";
+    private static final String CONTACT_INFORMATION = "{FOOTER_CONTACT_INFORMATION}";
+    private static final String CONTACT_ADDRESS = "{FOOTER_CONTACT_ADRESS}";
+    private static final String CONTACT_EMAIL = "{FOOTER_CONTACT_EMAIL}";
+    private static final String CONTACT_TELEPHONE = "{FOOTER_CONTACT_TELEPHONE}";
+
     private static final Map<String , String> PROPERTIES_MAP = new HashMap<String , String>() {{
         put(STATIC_HEADER, "staticHeader.html");
         put(FIXED_HEADER, "fixedHeader.html");
         put(FOOTER, "footer.html");
+        put(FOOTER_CONTACT, "contactFooter.html");
         put(META_TAG_NORMAL, "metaTagNormal.html");
         put(META_TAG_OPEN_GRAPH, "metaTagOpenGraph.html");
         put(META_TAG_TWITTER, "metaTagTwitter.html");
@@ -44,12 +52,19 @@ public class BootstrapBuilder {
 
     private HeaderType headerType;
     private boolean addFooter;
+    private boolean addContactDetails;
     private HashSet<MetaTagType> metaTags;
 
     private String metaTagTitle;
     private String metaTagType;
     private String metaTagDescription;
     private String metaTagImage;
+
+    private String contactCompanyName;
+    private String contactInformation;
+    private String contactAddress;
+    private String contactEmail;
+    private String contactTelephone;
 
     private String readResourceFile(String fileName) {
         try {
@@ -87,6 +102,10 @@ public class BootstrapBuilder {
         addFooter = true;
         return this;
     }
+    public BootstrapBuilder withContactDetails() {
+        addContactDetails = true;
+        return this;
+    }
     public BootstrapBuilder withMetaTag(MetaTagType metaTagType) {
         metaTags.add(metaTagType);
         return this;
@@ -109,13 +128,35 @@ public class BootstrapBuilder {
         return this;
     }
 
+    public BootstrapBuilder withContactCompanyName(String contactCompanyName) {
+        this.contactCompanyName = contactCompanyName;
+        return this;
+    }
+    public BootstrapBuilder withContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+        return this;
+    }
+    public BootstrapBuilder withContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress;
+        return this;
+    }
+    public BootstrapBuilder withContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+        return this;
+    }
+    public BootstrapBuilder withContactTelephone(String contactTelephone) {
+        this.contactTelephone = contactTelephone;
+        return this;
+    }
+
     public BootstrapBuilderResponse build(){
         String page = readResourceFile("/bootstrapIndex.html");
 
         page = addPageProperty(page, STATIC_HEADER, headerType == HeaderType.STATIC);
         page = addPageProperty(page, FIXED_HEADER, headerType == HeaderType.FIXED);
 
-        page = addPageProperty(page, FOOTER, addFooter);
+        page = addPageProperty(page, FOOTER, addFooter && !addContactDetails);
+        page = addPageProperty(page, FOOTER_CONTACT, addFooter && addContactDetails);
 
         page = addPageProperty(page, META_TAG_NORMAL, metaTags.contains(MetaTagType.NORMAL));
         page = addPageProperty(page, META_TAG_OPEN_GRAPH, metaTags.contains(MetaTagType.OPEN_GRAPH));
@@ -125,6 +166,12 @@ public class BootstrapBuilder {
         page = page.replace(META_TAG_PROPERTY_TYPE, metaTagType);
         page = page.replace(META_TAG_PROPERTY_DESCRIPTION, metaTagDescription);
         page = page.replace(META_TAG_PROPERTY_IMAGE, metaTagImage);
+
+        page = page.replace(CONTACT_COMPANY_NAME, contactCompanyName);
+        page = page.replace(CONTACT_INFORMATION, contactInformation);
+        page = page.replace(CONTACT_ADDRESS, contactAddress);
+        page = page.replace(CONTACT_EMAIL, contactEmail);
+        page = page.replace(CONTACT_TELEPHONE, contactTelephone);
 
         return new BootstrapBuilderResponse(page);
     }
