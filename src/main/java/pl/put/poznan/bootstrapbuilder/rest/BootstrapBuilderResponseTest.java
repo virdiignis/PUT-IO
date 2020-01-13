@@ -5,16 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BootstrapBuilderResponseTest {
-
     @Test
-    void getResponse() {
-    }
+    void setAndGetResponseTest() {
+        BootstrapBuilderResponse bootstrapBuilderResponse = new BootstrapBuilderResponse(null);
 
-    @Test
-    void setResponse() {
-    }
+        String response = "TestResponse";
 
-    @Test
-    void toJson() {
+        bootstrapBuilderResponse.setResponse(response);
+
+        assertEquals(response, bootstrapBuilderResponse.getResponse());
     }
 }
