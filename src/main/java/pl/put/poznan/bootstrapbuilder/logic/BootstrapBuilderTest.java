@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BootstrapBuilderTest {
     @Test
-    void withFooter() {
-    }
-
-    @Test
     void withContactDetails() {
         BootstrapBuilder b = new BootstrapBuilder();
         b.withContactDetails();
