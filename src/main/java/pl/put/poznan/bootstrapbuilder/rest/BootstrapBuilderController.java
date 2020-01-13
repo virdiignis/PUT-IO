@@ -51,6 +51,19 @@ public class BootstrapBuilderController {
         if (bootstrapBuilderInput.getMetaTagTitle() != null)
             b.withMetaTagTitle(bootstrapBuilderInput.getMetaTagTitle());
 
+        if (bootstrapBuilderInput.isAddContactDetails()) {
+            b.withContactDetails();
+            if (bootstrapBuilderInput.getContactAddress() != null)
+                b.withContactAddress(bootstrapBuilderInput.getContactAddress());
+            if (bootstrapBuilderInput.getContactCompanyName() != null)
+                b.withContactCompanyName(bootstrapBuilderInput.getContactCompanyName());
+            if (bootstrapBuilderInput.getContactEmail() != null)
+                b.withContactEmail(bootstrapBuilderInput.getContactEmail());
+            if (bootstrapBuilderInput.getContactInformation() != null)
+                b.withContactInformation(bootstrapBuilderInput.getContactInformation());
+            if (bootstrapBuilderInput.getContactTelephone() != null)
+                b.withContactTelephone(bootstrapBuilderInput.getContactTelephone());
+        }
 
         return b.build().toJson();
     }
